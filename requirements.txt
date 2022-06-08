@@ -1,0 +1,6 @@
+numpy
+streamlit
+orion-ml
+tensorflow-cpu
+keras
+streamlit-webrtc
