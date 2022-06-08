@@ -92,7 +92,7 @@ anomalydata.head()
 
 
 # # Graphing the Data
-# Finally, I graph the data. I still need to familiarize myself with plotly to create more effective graphs, but this basic graph seems to work for now. Discrete anomalous points are highlighted with red dots, while the timeseries data is graphed over time with the blue line. 
+# Finally, I graph the data. I still need to familiarize myself with plotly to create more effective graphs, but this basic graph seems to work for now. Discrete anomalous points are highlighted with red dots, while the timeseries data is graphed over time with the blue line.
 
 # In[14]:
 
@@ -104,18 +104,14 @@ fig.add_trace(go.Scatter(x = df['timestamp'], y = df['value'],   #blue line is s
                              mode = 'lines',
                              marker =dict(color='blue'),
                              name = 'original_signal'))
-fig.add_trace(go.Scatter(x = anomalydata['timestamp'], y = anomalydata['value'], mode = 'markers',
-                             marker = dict(color='red', size = 8),
+fig.add_trace(go.Scatter(x = anomalydata['timestamp'], y = anomalydata['value'], mode = 'lines',
+                             marker = dict(color='red'),
                              name = 'detected_anomaly'))
-fig.show() #graph figure with discrete anomalies highlighted in red
-
+#fig.show() #graph figure with discrete anomalies highlighted in red
+st.plotly_chart(fig)
 
 # # Conclusions
 
 # It's obviously difficult to draw any sort of conclusions based on just this data set, but it seems like the orion Arima pipeline is detecting anomalous segments during certain times of drastic increase in price. Obviously this script will change based on the orion model used and the data set. There's also far too many variables that weren't taken into account to even have an idea about what's going on here.
 
 # In[ ]:
-
-
-
-
