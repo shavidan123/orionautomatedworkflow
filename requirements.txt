@@ -1,3 +1,2 @@
 streamlit
-mongoengine==0.2
-orion-ml
+orion-ml setuptools==57
