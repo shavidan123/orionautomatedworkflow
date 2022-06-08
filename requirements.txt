@@ -1,3 +1,2 @@
---global-option setuptools==57
 streamlit
-orion-ml
+orion-ml --ignore-installed
