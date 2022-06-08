@@ -20,15 +20,16 @@ url = f"https://sandbox.iexapis.com/stable/stock/{ticker}/chart/5y/?token=Tpk_05
 data = requests.get(url).json()
 
 
-# # Data Fetching / Aggregation
+st.header("Data Fetching / Aggregation")
 
-# These first few cells are just collecting the data by conducting the get requests using IEX cloud API. I elected to use stock data because there are many metrics and it is updated consistently nearly every day.
+st.markdown("These first few cells are just collecting the data by conducting the get requests using IEX cloud API. I elected to use stock data because there are many metrics and it is updated consistently nearly every day.")
 
 # In[2]:
 
 
 df = pd.DataFrame(data)
 df.head()
+st.dataframe(df)
 
 
 # In[3]:
@@ -41,8 +42,8 @@ df["datetime"] = df["datetime"].dt.total_seconds()
 df.head()
 
 
-# # Building the Pipeline
-# I'm not entirely sure, but I think Orion requires the data to be formatted in a very specific way, with the two columns of the dataframe being labelled "timestamp" and "value." I set up the data as such, then build a pipeline that doesn't vary much from the default ARIMA pipeline that's preprogrammed into the Orion library.
+st.header("Building the Pipeline")
+st.markdown("I'm not entirely sure, but I think Orion requires the data to be formatted in a very specific way, with the two columns of the dataframe being labelled 'timestamp' and 'value.' I set up the data as such, then build a pipeline that doesn't vary much from the default ARIMA pipeline that's preprogrammed into the Orion library.")
 
 # In[4]:
 
@@ -64,8 +65,8 @@ hp = {
 arima = Orion(pipeline="ARIMA", hyperparameters = hp)
 
 
-# # Detecting Anomalies
-# Once the Orion pipeline is constructed, I fit the model to the data and predict anomalous segments. The data is output into a datafrae representing the start and end of the anomalous sequence. Using a for loop, I split the sequence back into its original discrete data points that make it up.
+st.header("Detecting Anomalies")
+st.markdown("Once the Orion pipeline is constructed, I fit the model to the data and predict anomalous segments. The data is output into a datafrae representing the start and end of the anomalous sequence. Using a for loop, I split the sequence back into its original discrete data points that make it up.")
 
 # In[6]:
 
@@ -77,7 +78,7 @@ anomalies = arima.fit_detect(df)
 
 
 anomalies.head()
-
+st.dataframe(anomalies)
 
 # In[8]:
 
@@ -89,10 +90,10 @@ for i in range(len(anomalies.index)): #works for any number of anomalous segment
     anomalydata = anomalydata.append(df[df["timestamp"].between(start, end)])
 
 anomalydata.head()
+st.dataframe(anomalydata)
 
-
-# # Graphing the Data
-# Finally, I graph the data. I still need to familiarize myself with plotly to create more effective graphs, but this basic graph seems to work for now. Discrete anomalous points are highlighted with red dots, while the timeseries data is graphed over time with the blue line.
+st.header("Graphing the Data")
+st.markdown("Finally, I graph the data. I still need to familiarize myself with plotly to create more effective graphs, but this basic graph seems to work for now. Discrete anomalous points are highlighted with red dots, while the timeseries data is graphed over time with the blue line.") 
 
 # In[14]:
 
@@ -110,8 +111,12 @@ fig.add_trace(go.Scatter(x = anomalydata['timestamp'], y = anomalydata['value'],
 #fig.show() #graph figure with discrete anomalies highlighted in red
 st.plotly_chart(fig)
 
-# # Conclusions
+st.header("Conclusions")
 
-# It's obviously difficult to draw any sort of conclusions based on just this data set, but it seems like the orion Arima pipeline is detecting anomalous segments during certain times of drastic increase in price. Obviously this script will change based on the orion model used and the data set. There's also far too many variables that weren't taken into account to even have an idea about what's going on here.
+st.markdown("It's obviously difficult to draw any sort of conclusions based on just this data set, but it seems like the orion ARIMA pipeline is detecting anomalous segments during certain times of drastic increase in price. Obviously this script will change based on the orion model used and the data set. There's also far too many variables that weren't taken into account to even have an idea about what's going on here.")
 
 # In[ ]:
+
+
+
+
