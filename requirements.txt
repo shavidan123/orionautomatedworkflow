@@ -1,3 +1,3 @@
-setuptools==58
+setuptools==57.0.0
 streamlit
 orion-ml
