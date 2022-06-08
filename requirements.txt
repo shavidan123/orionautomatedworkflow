@@ -1,2 +1,3 @@
 streamlit
+mongoengine==2.0
 orion-ml --ignore-installed
