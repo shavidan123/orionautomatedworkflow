@@ -1,2 +1,3 @@
+setuptools
 streamlit
-orion-ml setuptools==57
+orion-ml
