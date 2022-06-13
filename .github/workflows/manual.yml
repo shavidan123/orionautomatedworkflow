@@ -23,6 +23,5 @@ jobs:
           - name: execute py script # run the run.py to get the latest data
             run: |
               streamlit run orion_anomaly_detection.py
-            uses: actions/python@v2
           - name: export index
 
