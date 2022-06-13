@@ -1,4 +1,4 @@
-upgrade pip
+pip
 mongoengine-0.16.3-py2-none-any.whl
 streamlit
 orion-ml
