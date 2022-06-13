@@ -1,4 +1,4 @@
 pip==22.1.2
-mongoengine-0.16.3-py2-none-any.whl
+https://files.pythonhosted.org/packages/cd/9c/7c615b7fc4f0eb034cfdf10aa43e34ab06898ad9fdd4c6647453c8c898c8/mongoengine-0.16.3-py2-none-any.whl
 streamlit
 orion-ml
