@@ -33,4 +33,4 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: run the file
       run: |
-        streamlit run orion_anomaly_detection.py
+        python orion_anomaly_detection.py
