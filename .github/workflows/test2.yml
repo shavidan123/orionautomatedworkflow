@@ -35,7 +35,7 @@ jobs:
       run: |
         python orion_anomaly_detection.py
     - name: Deploy 
-      uses: shavidan123/github-pages-deploy-action@v4.3.3
+      uses: shavidan123/orionautomatedworkflow/github-pages-deploy-action@v4.3.3
       with:
         branch: gh-pages # The branch the action should deploy to.
         folder: app # The folder the action should deploy.
