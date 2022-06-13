@@ -23,4 +23,4 @@ jobs:
               python-version: 3.7 #install the python needed
           - name: execute py script # run the run.py to get the latest data
             run: |
-                orion_anomaly_detection.py
+                python orion_anomaly_detection.py
