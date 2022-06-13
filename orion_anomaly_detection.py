@@ -53,7 +53,63 @@ df = pd.DataFrame({"timestamp":df["datetime"], "value": df["close"]})
 
 # In[5]:
 
-
+arima_pipeline = {
+    "primitives": [
+        "mlprimitives.custom.timeseries_preprocessing.time_segments_aggregate",
+        "sklearn.impute.SimpleImputer",
+        "sklearn.preprocessing.MinMaxScaler",
+        "mlprimitives.custom.timeseries_preprocessing.rolling_window_sequences",
+        "numpy.reshape",
+        "statsmodels.tsa.arima_model.Arima",
+        "orion.primitives.timeseries_errors.regression_errors",
+        "orion.primitives.timeseries_anomalies.find_anomalies"
+    ],
+    "init_params": {
+        "mlprimitives.custom.timeseries_preprocessing.time_segments_aggregate#1": {
+            "time_column": "timestamp",
+            "interval": 21600,
+            "method": "mean"
+        },
+        "sklearn.preprocessing.MinMaxScaler#1": {
+            "feature_range": [
+                -1,
+                1
+            ]
+        },
+        "mlprimitives.custom.timeseries_preprocessing.rolling_window_sequences#1": {
+            "target_column": 0,
+            "window_size": 250
+        },
+        "numpy.reshape#1": {
+            "newshape": [
+                -1,
+                250
+            ]
+        },
+        "statsmodels.tsa.arima_model.Arima#1": {
+            "steps": 1
+        },
+        "orion.primitives.timeseries_anomalies.find_anomalies#1": {
+            "fixed_threshold": "true"
+        }
+    },
+    "input_names": {
+        "orion.primitives.timeseries_anomalies.find_anomalies#1": {
+            "index": "target_index"
+        },
+        "numpy.reshape#1": {
+            "y": "X"
+        }
+    },
+    "output_names": {
+        "statsmodels.tsa.arima_model.Arima#1": {
+            "y": "y_hat"
+        },
+        "numpy.reshape#1": {
+            "y": "X"
+        }
+    }
+}
 hp = {
     'mlprimitives.custom.timeseries_preprocessing.time_segments_aggregate#1': {
         'interval': 43200 #changing time interval drastically affects anomaly detection. currently using half-day intervals.
@@ -62,7 +118,7 @@ hp = {
             "steps": 1
     }
 }
-arima = Orion(pipeline="ARIMA", hyperparameters = hp)
+arima = Orion(pipeline=arima_pipeline, hyperparameters = hp)
 
 
 st.header("Detecting Anomalies")
