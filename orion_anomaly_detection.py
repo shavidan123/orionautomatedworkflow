@@ -144,7 +144,7 @@ for i in range(len(anomalies.index)): #works for any number of anomalous segment
     start = anomalies.iloc[i, 0]
     end = anomalies.iloc[i, 1]
     anomalydata = anomalydata.append(df[df["timestamp"].between(start, end)])
-
+print(anomalydata)
 anomalydata.head()
 st.dataframe(anomalydata)
 
