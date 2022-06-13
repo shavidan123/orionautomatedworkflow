@@ -161,7 +161,7 @@ fig.add_trace(go.Scatter(x = df['timestamp'], y = df['value'],   #blue line is s
                              mode = 'lines',
                              marker =dict(color='blue'),
                              name = 'original_signal'))
-fig.add_trace(go.Scatter(x = anomalydata['timestamp'], y = anomalydata['value'], mode = 'lines',
+fig.add_trace(go.Scatter(x = anomalydata['timestamp'], y = anomalydata['value'], mode = 'markers',
                              marker = dict(color='red'),
                              name = 'detected_anomaly'))
 #fig.show() #graph figure with discrete anomalies highlighted in red
